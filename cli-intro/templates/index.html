@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BigQuery Release Notes Hub</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Style Sheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Background Decorative Gradients -->
+        <div class="gradient-bg">
+            <div class="g-circle g-1"></div>
+            <div class="g-circle g-2"></div>
+            <div class="g-circle g-3"></div>
+        </div>
+
+        <!-- Header -->
+        <header class="glass-panel main-header">
+            <div class="header-logo">
+                <svg class="bq-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19Z" fill="currentColor"/>
+                    <path d="M7 12H9V17H7V12Z" fill="currentColor"/>
+                    <path d="M11 7H13V17H11V7Z" fill="currentColor"/>
+                    <path d="M15 10H17V17H15V10Z" fill="currentColor"/>
+                </svg>
+                <div class="header-title">
+                    <h1>BigQuery</h1>
+                    <span class="sub-title">Release Notes Hub</span>
+                </div>
+            </div>
+
+            <div class="header-controls">
+                <button id="theme-toggle" class="icon-btn" title="Toggle Theme" aria-label="Toggle light and dark mode">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                </button>
+                <button id="refresh-btn" class="primary-btn">
+                    <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.72 2.78L21.5 8"></path>
+                        <path d="M21 3v5h-5"></path>
+                    </svg>
+                    <span>Fetch Live Notes</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Overview Dashboard -->
+        <section class="dashboard-stats">
+            <div class="stat-card glass-panel count-total">
+                <div class="stat-icon-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <path d="M14 2v6h6"></path>
+                        <path d="M16 13H8M16 17H8M10 9H8"></path>
+                    </svg>
+                </div>
+                <div class="stat-data">
+                    <span class="stat-label">Total Updates</span>
+                    <h2 class="stat-value" id="stat-total">-</h2>
+                </div>
+            </div>
+            
+            <div class="stat-card glass-panel count-features">
+                <div class="stat-icon-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                </div>
+                <div class="stat-data">
+                    <span class="stat-label">Features Added</span>
+                    <h2 class="stat-value text-feature" id="stat-features">-</h2>
+                </div>
+            </div>
+
+            <div class="stat-card glass-panel count-issues">
+                <div class="stat-icon-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                </div>
+                <div class="stat-data">
+                    <span class="stat-label">Known Issues</span>
+                    <h2 class="stat-value text-issue" id="stat-issues">-</h2>
+                </div>
+            </div>
+
+            <div class="stat-card glass-panel count-changes">
+                <div class="stat-icon-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                    </svg>
+                </div>
+                <div class="stat-data">
+                    <span class="stat-label">Changes & Others</span>
+                    <h2 class="stat-value text-change" id="stat-changes">-</h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <main class="main-layout">
+            
+            <!-- Left Panel: Release Notes Feed -->
+            <section class="feed-section">
+                <!-- Toolbar / Controls -->
+                <div class="toolbar-panel glass-panel">
+                    <div class="search-box">
+                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="search-input" placeholder="Search release notes (e.g. Gemini, SQL, security)..." autocomplete="off">
+                        <button id="search-clear-btn" class="clear-btn" title="Clear search" style="display: none;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="filters-container">
+                        <div class="filter-group">
+                            <span class="filter-title">Filter by Type:</span>
+                            <div class="filter-buttons">
+                                <button class="filter-btn active" data-type="all">All</button>
+                                <button class="filter-btn" data-type="feature">Features</button>
+                                <button class="filter-btn" data-type="issue">Issues</button>
+                                <button class="filter-btn" data-type="change">Changes</button>
+                                <button class="filter-btn" data-type="deprecation">Deprecations</button>
+                            </div>
+                        </div>
+
+                        <div class="sort-group">
+                            <button id="sort-order-btn" class="sort-btn" data-order="desc" title="Change sort order">
+                                <span id="sort-label">Newest First</span>
+                                <svg id="sort-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <polyline points="19 12 12 19 5 12"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Filter Tags Display -->
+                <div id="active-filters-bar" class="active-filters-bar" style="display: none;">
+                    <span class="active-filters-label">Active Filters:</span>
+                    <div class="active-tags-list" id="active-tags-list">
+                        <!-- Filled dynamically -->
+                    </div>
+                    <button id="reset-all-filters-btn" class="text-link-btn">Reset All</button>
+                </div>
+
+                <!-- Feed Content Container -->
+                <div class="notes-feed" id="notes-feed">
+                    <!-- Loading Skeletons -->
+                    <div class="loading-state">
+                        <div class="skeleton-card glass-panel">
+                            <div class="skeleton-header"></div>
+                            <div class="skeleton-line width-80"></div>
+                            <div class="skeleton-line width-60"></div>
+                        </div>
+                        <div class="skeleton-card glass-panel">
+                            <div class="skeleton-header"></div>
+                            <div class="skeleton-line width-90"></div>
+                            <div class="skeleton-line width-70"></div>
+                        </div>
+                        <div class="skeleton-card glass-panel">
+                            <div class="skeleton-header"></div>
+                            <div class="skeleton-line width-75"></div>
+                            <div class="skeleton-line width-50"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State (No Search Results) -->
+                <div class="empty-state glass-panel" id="empty-state" style="display: none;">
+                    <div class="empty-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            <line x1="8" y1="11" x2="14" y2="11"></line>
+                        </svg>
+                    </div>
+                    <h3>No matching release notes</h3>
+                    <p>Try modifying your search query or changing the category filter.</p>
+                    <button id="clear-search-btn-empty" class="primary-btn mt-4">Clear All Filters</button>
+                </div>
+
+                <!-- Error State -->
+                <div class="error-state glass-panel" id="error-state" style="display: none;">
+                    <div class="error-icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <h3>Unable to fetch release notes</h3>
+                    <p id="error-message">A network error occurred. Please check your connection and try again.</p>
+                    <button id="retry-btn" class="primary-btn mt-4">Retry Connection</button>
+                </div>
+            </section>
+
+            <!-- Right Panel: Sticky Sidebar -->
+            <aside class="sidebar-section">
+                <!-- Quick Info Panel -->
+                <div class="glass-panel sidebar-card">
+                    <h3 class="sidebar-heading">About BigQuery Feed</h3>
+                    <p class="sidebar-text">
+                        This application syncs live updates from the official Google BigQuery Release Notes RSS Feed.
+                    </p>
+                    <div class="feed-info-meta">
+                        <div class="meta-item">
+                            <span class="meta-dot green"></span>
+                            <span class="meta-label">Feed Status:</span>
+                            <span class="meta-value" id="feed-status">Checking...</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Last Checked:</span>
+                            <span class="meta-value" id="last-checked-time">Never</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Keyword Cloud -->
+                <div class="glass-panel sidebar-card">
+                    <h3 class="sidebar-heading">Popular Keywords</h3>
+                    <p class="sidebar-subtext">Click on keywords to filter release notes instantly.</p>
+                    <div class="tag-cloud" id="keyword-tags">
+                        <span class="loading-tag">Analyzing updates...</span>
+                    </div>
+                </div>
+
+                <!-- Official Resources Links -->
+                <div class="glass-panel sidebar-card">
+                    <h3 class="sidebar-heading">Official Resources</h3>
+                    <ul class="resource-links">
+                        <li>
+                            <a href="https://cloud.google.com/bigquery" target="_blank" rel="noopener noreferrer">
+                                <span>Google BigQuery Overview</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-link-icon">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"></path>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://cloud.google.com/bigquery/docs/release-notes" target="_blank" rel="noopener noreferrer">
+                                <span>Official Release Notes Page</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-link-icon">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"></path>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://docs.cloud.google.com/feeds/bigquery-release-notes.xml" target="_blank" rel="noopener noreferrer">
+                                <span>Raw Feed RSS XML Source</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="external-link-icon">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"></path>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </main>
+
+            <!-- Scroll to top button -->
+            <button id="scroll-top-btn" class="scroll-top-btn" title="Back to top">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="19" x2="12" y2="5"></line>
+                    <polyline points="5 12 12 5 19 12"></polyline>
+                </svg>
+            </button>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p>Google BigQuery Release Notes Hub &copy; 2026. Made with Python Flask, CSS and JS.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Script file -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
